@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import productsData from './data/products.json';
+import { useState, useEffect } from 'react';
+// import productsData from './data/products.json';
 import Header from './components/Header';
 import Filters from './components/Filters';
 import ProductCard from './components/ProductCard';
@@ -18,6 +18,20 @@ export default function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+
+  const [productsData, setProductsData] = useState([]); // Começa como um array vazio
+
+  useEffect(() => {
+    // Faz a requisição para a sua API do Django
+    fetch('http://localhost:8000/api/products/') 
+      .then(response => response.json())
+      .then(data => {
+        setProductsData(data); // Salva os produtos do banco de dados no estado
+      })
+      .catch(error => {
+        console.error("Erro ao carregar os produtos:", error);
+      });
+  }, []);
 
   const handleAddToCart = (produto, quantidade = 1) => {
     setCartItems(prev => {
