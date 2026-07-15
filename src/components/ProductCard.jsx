@@ -32,7 +32,7 @@ export default function ProductCard({ produtos, onAddToCart, onViewProduct }) {
             </h3>
             
             <p className="text-[#993FC5] font-bold text-lg mb-4">
-              R$ {product.preco.toFixed(2)}
+              R$ {Number(product.preco).toFixed(2)}
             </p>
           </div>
 

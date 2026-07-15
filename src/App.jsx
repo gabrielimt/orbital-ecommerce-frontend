@@ -22,8 +22,7 @@ export default function App() {
   const [productsData, setProductsData] = useState([]); // Começa como um array vazio
 
   useEffect(() => {
-    // Faz a requisição para a sua API do Django
-    fetch('http://localhost:8000/api/products/') 
+    fetch('https://cautious-space-funicular-5vvqxrx46gcp74r-8000.app.github.dev/api/products/') 
       .then(response => response.json())
       .then(data => {
         setProductsData(data); // Salva os produtos do banco de dados no estado
@@ -88,7 +87,7 @@ export default function App() {
     setApenasEstoque(false);
   };
 
-  const produtosFiltrados = productsData.filter(produto => {
+  const produtosFiltrados = Array.isArray(productsData) ? productsData.filter(produto => {
     const matchCategoria = categorias.length === 0 || categorias.includes(produto.categoria);
     const matchPrecoMin = precoMin === '' || produto.preco >= Number(precoMin);
     const matchPrecoMax = precoMax === '' || produto.preco <= Number(precoMax);
@@ -96,7 +95,7 @@ export default function App() {
     const matchEstoque = !apenasEstoque || produto.em_estoque;
     
     return matchCategoria && matchPrecoMin && matchPrecoMax && matchCor && matchEstoque;
-  });
+  }) : [];
 
   return (
     <div className="bg-[#03042C] min-h-screen text-white font-sans relative flex flex-col">

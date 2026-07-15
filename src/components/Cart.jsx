@@ -3,7 +3,8 @@ import React from 'react';
 export default function Cart({ isOpen, onClose, cartItems = [], updateQuantity, clearCart }) {
   if (!isOpen) return null;
 
-  const totalDoCarrinho = cartItems.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+  // CORREÇÃO 1: Convertendo item.preco para Number no reduce
+  const totalDoCarrinho = cartItems.reduce((acc, item) => acc + (Number(item.preco) * item.quantidade), 0);
 
   return (
     <>
@@ -55,7 +56,8 @@ export default function Cart({ isOpen, onClose, cartItems = [], updateQuantity, 
                   </div>
                   <div className="flex-1">
                     <h3 className="text-sm font-semibold text-white line-clamp-2">{item.nome}</h3>
-                    <p className="text-[#F897FE] font-medium mt-1">R$ {item.preco.toFixed(2)}</p>
+                    {/* CORREÇÃO 2: Convertendo item.preco para Number antes do toFixed */}
+                    <p className="text-[#F897FE] font-medium mt-1">R$ {Number(item.preco).toFixed(2)}</p>
                   </div>
                 </div>
 
@@ -82,7 +84,8 @@ export default function Cart({ isOpen, onClose, cartItems = [], updateQuantity, 
                     </button>
                   </div>
                   <p className="text-xs text-gray-400">
-                    Subtotal: <span className="text-gray-200">R$ {(item.preco * item.quantidade).toFixed(2)}</span>
+                    {/* CORREÇÃO 3: Convertendo item.preco para Number no Subtotal */}
+                    Subtotal: <span className="text-gray-200">R$ {(Number(item.preco) * item.quantidade).toFixed(2)}</span>
                   </p>
                 </div>
               </div>

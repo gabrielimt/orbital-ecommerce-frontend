@@ -42,7 +42,8 @@ export default function ProductPage({ produto, onAddToCart, onBack }) {
             </h1>
             
             <p className="text-3xl font-bold text-[#935AF0] mb-8">
-              R$ {produto.preco.toFixed(2)}
+              {/* CORREÇÃO AQUI: Convertendo para Number antes de usar o toFixed */}
+              R$ {Number(produto.preco).toFixed(2)}
             </p>
 
             <div className="mb-8 pb-8 border-b border-[#483ACC]/30">
